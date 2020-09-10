@@ -280,8 +280,8 @@ $RECYCLE.BIN/
 *.hdp
 *.wdp
 
-# Graphics Interchange Format
-*.gif
+# video
+*.mp4
 
 # RAW
 *.raw
