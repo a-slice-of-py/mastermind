@@ -28,7 +28,8 @@ class MasterMind:
         self.history = []
         self.success = False
 
-        colors = ("🔴", "🔵", "🟢", "🟡", "🟣", "🟤")
+        colors = ("📕", "📘", "📗", "📒", "📓", "📔")
+        # colors = ("🔴", "🔵", "🟢", "🟡", "🟣", "🟤")
         self.colors = colors[:N_COLORS]
         self.secret = '❔'
         self.hints = ("◼️", "◻️")
