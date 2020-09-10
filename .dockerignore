@@ -1,0 +1,5 @@
+**/.git
+**/.vscode
+**/__pycache__
+**/mastermind.egg-info
+**/.env-mastermind
