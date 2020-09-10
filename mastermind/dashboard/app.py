@@ -131,7 +131,6 @@ def main() -> None:
                 )
             for k in range(game.N_SLOTS)
             ]
-        st.write(tuple(i for c in selection for i in c))
         code = tuple(game.inv_dict.get(i) for c in selection for i in c)
         submit_code = st.sidebar.button('Submit code')
     else:
@@ -140,7 +139,6 @@ def main() -> None:
 
     if user_role == 'code_breaker':
         if submit_code:
-            st.write(game.inv_dict)
             game.user_guess(code)
             st.markdown(game.history[-1], unsafe_allow_html=True)
             game.memory = game.memory.union(
