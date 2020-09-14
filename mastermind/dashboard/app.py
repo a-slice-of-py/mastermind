@@ -73,6 +73,8 @@ def main() -> None:
     """Implements streamlit app to play with MasterMind
     """
     st.sidebar.markdown('# MasterMind')
+    wiki = 'ℹ️ [Game info](https://en.wikipedia.org/wiki/Mastermind_(board_game))'
+    st.sidebar.markdown(wiki, unsafe_allow_html=True)
     session = new_session()
     reset = st.sidebar.button('Reset game')
 
