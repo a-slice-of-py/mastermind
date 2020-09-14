@@ -81,17 +81,49 @@ def main() -> None:
         reset_game()
 
     roles = {
-        'code_breaker': '🙈',
-        'code_maker': '🙊'
+        'code_breaker': {
+            'emoji': '🙈',
+            'rules': f"""
+            Your aim is to guess the _secret code_ chosen by The CodeMaker (played here by the underlying game agent).<br><br>
+            You can choose the _complexity_ of such code, both in terms of code length and number of available distinct colors,
+            in the **Game options** menu _(remember, each color can appear in a given code more than once)_.<br><br>
+            At each turn, you have to choose a guess code through the **Code selection** menu in the sidebar.<br>
+            You will then receive an _hint_, in terms of black and white pegs, which abide the following legend:<br><br>
+            ◼️ = right color and right location<br>
+            ◻️ = right color but wrong location<br><br>
+            _(remember, pegs locations aren't related with colors locations within the code!)_<br><br>
+            You are now ready to submit new guesses, one after the other, following the obtained hints in order to crack the secret code!
+            If your moves are coherent with the hints, you should see the _next turn winning odds_ increase in the gauge.
+            """.strip()
+            },
+        'code_maker': {
+            'emoji': '🙊',
+            'rules': f"""
+            Your aim is to choose the _secret code_ and play it against The CodeBreaker (played here by the underlying game agent).<br><br>
+            You can choose the _complexity_ of such code, both in terms of code length and number of available distinct colors,
+            in the **Game options** menu _(remember, each color can appear in a given code more than once)_.<br><br>
+            First of all you have to submit the chosen secret code through the **Code selection** menu in the sidebar.<br>
+            Then, at each turn you will have to choose the hint corresponding to the agent guess through the **Hint selection** menu,
+            by chosing the right combination of black and white pegs
+            which must abide the following legend:<br><br>
+            ◼️ = right color and right location<br>
+            ◻️ = right color but wrong location<br><br>
+            _(remember, pegs locations aren't related with colors locations within the code!)_<br><br>
+            You are now ready to submit new hints, one after the other, following the guesses received from the agent.
+            If your hints are coherent with the guesses, you will see the _next turn winning odds_ increase in the gauge.
+            """.strip()
+            }
         }
+
+    st.sidebar.markdown('## Game options')
     user_role = st.sidebar.radio(
         'You are playing as',
         sorted(roles),
-        format_func=lambda x: f"{roles.get(x)} The {x.title().replace('_','')}",
+        format_func=lambda x: f"{roles.get(x).get('emoji')} The {x.title().replace('_','')}",
         index=0
         )
     locations = st.sidebar.slider(
-        'Number of locations',
+        'Code length',
         min_value=2,
         max_value=6,
         value=4,
@@ -110,12 +142,17 @@ def main() -> None:
 
     game = new_game(N_SLOTS=locations, N_COLORS=colors)
 
-    st.sidebar.markdown(f"{game.hints[0]} right color and right location<br>{game.hints[1]} right color but wrong location", unsafe_allow_html=True)
+    st.markdown(f'''
+    # {roles.get(user_role).get('emoji')} The {user_role.title().replace('_','')}
+    {roles.get(user_role).get('rules')}
+    ''', unsafe_allow_html=True)
+
     secret_code = st.sidebar.empty()
     secret_code.markdown(f"# Secret code: {''.join(game.N_SLOTS*[game.secret])}")
     winning_odds = st.sidebar.empty()
     winning_odds.plotly_chart(odds_gauge(100*game.calculate_win_odds()), use_container_width=True)
 
+    empty_md = st.sidebar.empty()
     empty_hint = st.sidebar.empty()
     empty_submit = st.sidebar.empty()
 
@@ -123,6 +160,7 @@ def main() -> None:
         st.markdown(log, unsafe_allow_html=True)
 
     if not session.code_submitted:
+        st.sidebar.markdown('# Code selection')
         selection = [
             st.sidebar.selectbox(
                 '',
@@ -166,6 +204,7 @@ def main() -> None:
         if session.code_submitted:
             game.secret_code = code
             secret_code.markdown(f"# Secret code: {new_line}{game.paint(game.secret_code)}", unsafe_allow_html=True)
+            empty_md.markdown('# Hint selection')
             hint = empty_hint.selectbox(
                 'Select hint',
                 game.possible_hints,
