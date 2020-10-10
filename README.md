@@ -4,8 +4,8 @@
 
 ![](streamlit-mastermind.gif)
 
-Live version of the app can be found at https://streamlit-mastermind.herokuapp.com (_thanks to [S Ahmad](https://towardsdatascience.com/deploy-streamlit-on-heroku-9c87798d2088) and [hannahyan
-](https://dev.to/hannahyan/getting-started-in-deploying-interactive-data-science-apps-with-streamlit-part-2-3ob) for the wonderful deployment tutorials!_).
+Live version of the app can be found on [Heroku](https://streamlit-mastermind.herokuapp.com) (_thanks to [S Ahmad](https://towardsdatascience.com/deploy-streamlit-on-heroku-9c87798d2088) and [hannahyan
+](https://dev.to/hannahyan/getting-started-in-deploying-interactive-data-science-apps-with-streamlit-part-2-3ob) for the wonderful deployment tutorials!_) or directly on [Streamlit](https://share.streamlit.io/a-slice-of-py/mastermind/master/app.py).
 
 ## Installation
 
