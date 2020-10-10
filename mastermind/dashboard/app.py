@@ -72,6 +72,11 @@ def odds_gauge(value: float) -> go.Figure:
 def main() -> None:
     """Implements streamlit app to play with MasterMind
     """
+    st.beta_set_page_config(
+        page_title='MasterMind',
+        layout='centered', # centered
+        initial_sidebar_state='auto' # collapsed
+        )
     st.sidebar.markdown('# MasterMind')
     wiki = 'ℹ️ [Game info](https://en.wikipedia.org/wiki/Mastermind_(board_game))'
     st.sidebar.markdown(wiki, unsafe_allow_html=True)
@@ -144,10 +149,11 @@ def main() -> None:
 
     game = new_game(N_SLOTS=locations, N_COLORS=colors)
 
-    st.markdown(f'''
-    # {roles.get(user_role).get('emoji')} The {user_role.title().replace('_','')}
-    {roles.get(user_role).get('rules')}
-    ''', unsafe_allow_html=True)
+    with st.beta_expander("Show game rules"):
+        st.markdown(f'''
+        # {roles.get(user_role).get('emoji')} The {user_role.title().replace('_','')}
+        {roles.get(user_role).get('rules')}
+        ''', unsafe_allow_html=True)
 
     secret_code = st.sidebar.empty()
     secret_code.markdown(f"# Secret code: {''.join(game.N_SLOTS*[game.secret])}")
