@@ -32,11 +32,11 @@ root/
 |   └─ dashboard/
 │       ├── __init__.py
 │       ├── session_state.py
-│       ├── st_rerun.py
-│       └── app.py
+│       └── st_rerun.py
 |
 ├── .dockerignore
 ├── .gitignore
+├── app.py
 ├── Dockerfile
 ├── Procfile
 ├── README.md
@@ -50,7 +50,6 @@ root/
 Install [streamlit](https://docs.streamlit.io/) via `pip` and execute the following in the root folder to run Streamlit app (by default on port 8501):
 
 ```python
->>> cd ./mastermind/dashboard
 >>> streamlit run app.py
 ```
 
