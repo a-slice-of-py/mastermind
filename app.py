@@ -72,7 +72,7 @@ def odds_gauge(value: float) -> go.Figure:
 def main() -> None:
     """Implements streamlit app to play with MasterMind
     """
-    st.beta_set_page_config(
+    st.set_page_config(
         page_title='MasterMind',
         layout='centered', # centered
         initial_sidebar_state='auto' # collapsed
